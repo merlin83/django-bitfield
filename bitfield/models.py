@@ -198,7 +198,8 @@ class BitField(six.with_metaclass(BitFieldMeta, BigIntegerField)):
 
     def deconstruct(self):
         name, path, args, kwargs = super(BitField, self).deconstruct()
-        args.insert(0, self._arg_flags)
+        # we do this to prevent the creation of a new migration file each time makemigrations is run
+        args.insert(0, (None,))
         return name, path, args, kwargs
 
 
